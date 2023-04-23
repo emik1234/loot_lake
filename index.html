@@ -5,41 +5,168 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+
     <title>Loot Lake</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.js"></script>
   </head>
   <body>
     <div class="bg">
+      <iframe
+        src="https://www.youtube.com/embed/IpuNd8ezovo?autoplay=1&enablejsapi=1&controls=0&showinfo=0&rel=0&loop=1&playlist=IpuNd8ezovo"
+        width="0"
+        height="0"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        allowfullscreen
+        onload="onIframeLoad(this)"
+      ></iframe>
+
       <img
         class="fishing-rod"
         id="rod"
-        src="images/Lake/fishing rod.png"
+        src="Assets/Images/Lake/fishing rod.png"
         alt="Fishing Rod"
       />
 
-      <canvas id="stringCanvas" width="500px" height="150px"></canvas>
+      <canvas id="stringCanvas" width="500px" height="200px"></canvas>
 
-      <img class="grass-img" src="grass.png" alt="Grass" />
+      <img class="grass-img" src="Assets/Images/Lake/grass.png" alt="Grass" />
 
-      <a href="#"
-        ><img class="radio" src="images/Lake/radio.png" alt="Radio"
-      /></a>
+      <div class="radio-box">
+        <a onclick="playRadio()"
+          ><img class="radio" src="Assets/Images/Lake/radio.png" alt="Radio" />
+        </a>
+        <div id="radioLed"></div>
+      </div>
+
       <div class="grid-containter">
-        <div class="grid-item"></div>
-        <div class="grid-item"></div>
-        <div class="grid-item"></div>
-        <div class="grid-item"></div>
+        <div class="grid-item">
+          <h5 id="hookCount" class="inv-count">0</h5>
+          <a class="inv-item" id="hooks" onclick="selectBonus(this.id)"
+            ><img
+              class="inv-img hook"
+              src="Assets/Images/Global/hook.jpg"
+              alt=""
+          /></a>
+          <img
+            id="hooksChecked"
+            class="checked"
+            src="Assets/Images/Global/chech.png"
+            alt=""
+          />
+        </div>
+        <div class="grid-item">
+          <h5 id="breadCount" class="inv-count">0</h5>
+          <a class="inv-item" id="bread" onclick="selectBonus(this.id)"
+            ><img
+              class="inv-img bread"
+              src="Assets/Images/Global/bread.jpg"
+              alt=""
+          /></a>
+          <img
+            id="breadChecked"
+            class="checked"
+            src="Assets/Images/Global/chech.png"
+            alt=""
+          />
+        </div>
+        <div class="grid-item">
+          <h5 id="wormsCount" class="inv-count">0</h5>
+          <a class="inv-item" id="worms" onclick="selectBonus(this.id)"
+            ><img
+              class="inv-img worms"
+              src="Assets/Images/Global/worms.jpg"
+              alt=""
+          /></a>
+          <img
+            id="wormsChecked"
+            class="checked"
+            src="Assets/Images/Global/chech.png"
+            alt=""
+          />
+        </div>
+        <div class="grid-item">
+          <h5 id="degvinsCount" class="inv-count">0</h5>
+          <a class="inv-item" id="graudnieks" onclick="selectBonus(this.id)"
+            ><img
+              class="inv-img degvins"
+              src="Assets/Images/Global/degvins.png"
+              alt=""
+          /></a>
+          <img
+            id="graudnieksChecked"
+            class="checked"
+            src="Assets/Images/Global/chech.png"
+            alt=""
+          />
+        </div>
       </div>
       <a href="shop.html"
-        ><img src="images/Lake/shopping-cart.png" alt="Shop" class="img-shop"
-      /></a>
-      <a href="#"
         ><img
-          src="images/Lake/BUCKET.png"
+          src="Assets/Images/Lake/shopping-cart.png"
+          alt="Shop"
+          class="img-shop"
+      /></a>
+      <a href="#">
+        <img
+          src="Assets/Images/Global/BUCKET.png"
           alt="Inventory"
           class="img-inventory"
       /></a>
+      <p class="fishSkAITS" id="fishAmount"></p>
+      <canvas id="rectCanva" width="300px" height="40px"></canvas>
+      <div>
+        <img
+          id="congratsBG"
+          class="congrats-bg"
+          src="Assets/Images/Global/congrats.png"
+          alt=""
+        />
+
+        <img
+          id="asaris"
+          class="asaris-img"
+          src="Assets/Images/Global/ahven.png"
+          alt=""
+        />
+        <img
+          id="lasis"
+          class="asaris-img"
+          src="Assets/Images/Global/lasis.jpg"
+          alt=""
+        />
+        <img
+          id="negis"
+          class="asaris-img"
+          src="Assets/Images/Global/negis.png"
+          alt=""
+        />
+        <img
+          id="vimba"
+          class="asaris-img"
+          src="Assets/Images/Global/vimba.png"
+          alt=""
+        />
+        <img
+          id="lidaka"
+          class="asaris-img"
+          src="Assets/Images/Global/li.png"
+          alt=""
+        />
+      </div>
+
+      <img class="watch" scr="Assets/Images/Lake/watch.png" />
+      <p class="date" id="timeOutput"></p>
+
+      <p class="watermark">
+        Loot Lake© by MTK un co.<br />Lead Developer: Emīls Juris Gelašs<br />Project
+        Manager: Matīss Toms Ķiploks<br />
+        Copyright - 1989
+      </p>
     </div>
 
     <script src="script.js"></script>
   </body>
 </html>
+
+<!--iemesānas sakņ, shop, laiks, maksim;alais zivis  -->

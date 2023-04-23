@@ -1,20 +1,32 @@
 * {
   width: 100vw;
+  height: 100vh;
   margin: 0;
 }
 
 .bg {
-  //background-image: url("images/Shop/FishStand.jpg");
+  background-image: url("Assets/Images/Shop/FishStand.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  width: 12%;
+  width: 100vw;
+  height: auto;
   margin: 0;
 }
 
 .arrow {
   position: absolute;
-  width: 15%;
+  width: 1%;
   height: auto;
   top: 50px;
   left: 10px;
+}
+
+.watermark {
+  position: absolute;
+  color: white;
+  font-style: italic;
+  font-size: 20px;
+  opacity: 50%;
+  left: 2.5%;
+  bottom: 2.5%;
 }
