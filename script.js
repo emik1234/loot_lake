@@ -129,7 +129,10 @@ document.addEventListener("keydown", (event) => {
         document.getElementById("graudnieksChecked").style.visibility =
           "hidden";
 
-        data.bonus.bread -= 1;
+        if (activeBonus.bread) {
+          data.bonus.bread -= 1;
+        }
+
         ctx.clearRect(0, 0, ct.width, ct.height);
 
         rotate();
@@ -160,7 +163,6 @@ function catchFish() {
 
   if (floaterY <= 202) {
     requestAnimationFrame(catchFish);
-    sinkSound.play();
   } else {
     slider();
     ctx2.fillStyle = "#7CFC00";
@@ -241,9 +243,8 @@ function determineFish() {
 
 function congrats() {
   activeBonus.bread = false;
-
   let fish = determineFish();
-  console.log(fish);
+  let fishCount = 0;
   ctx.clearRect(0, 0, ct.width, ct.height);
   document.getElementById("congratsBG").style.visibility = "visible";
   document.getElementById(fish).style.visibility = "visible";
@@ -265,11 +266,11 @@ function congrats() {
   }
 
   if (activeBonus.worms) {
-    activeBonus.worms -= 1;
+    data.bonus.worms -= 1;
   }
 
   if (activeBonus.graudnieks) {
-    activeBonus.graudnieks -= 1;
+    data.bonus.graudnieks -= 1;
   }
 
   activeBonus.worms = false;
@@ -333,6 +334,7 @@ function fishChances() {
 
     if (random >= interval) {
       catchFish();
+      sinkSound.play();
     } else {
       fishChances();
     }
@@ -340,8 +342,6 @@ function fishChances() {
 }
 
 function selectBonus(id) {
-  let element = document.getElementById(id);
-
   console.log(activeBonus[id] == false, data.bonus[id]);
   if (activeBonus[id] == false && data.bonus[id] > 0) {
     if (id == "worms") {

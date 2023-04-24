@@ -22,6 +22,11 @@ body {
   border: 1px solid black;
 }
 
+@font-face {
+  font-family: sevenSegment;
+  src: url(Assets/Fonts/Seven_Segment.ttf);
+}
+
 .bg {
   background-image: url("Assets/Images/Lake/1.jpg");
   background-repeat: no-repeat;
@@ -49,6 +54,8 @@ body {
 .fishSkAITS {
   position: absolute;
   color: white;
+  left: 2.5%;
+  bottom: 15%;
   font-style: bold;
   font-size: 2em;
 }
@@ -64,8 +71,7 @@ body {
 .radio-box {
   position: relative;
   width: 10vw;
-  height: 10vw; /* or block */
-
+  height: 10vw;
   top: 75%;
   left: 20%;
 }
@@ -179,21 +185,30 @@ body {
   visibility: hidden;
 }
 
+.time {
+  position: relative;
+  font-family: sevenSegment;
+  width: 10%;
+  height: 25%;
+  left: 88%;
+  top: -20%;
+}
+
 .watch {
   position: absolute;
-  width: 10%;
-  height: 10%;
-  z-index: 10;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
 }
 .date {
   position: absolute;
-  top: 20px;
-  right: 10px;
+  top: 28%;
+  right: 15%;
   text-align: center;
   color: black;
-  font-size: 2em;
+  font-size: 1.5em;
   font-weight: bold;
-  width: 220px;
+  width: 70%;
 }
 
 .watermark {
