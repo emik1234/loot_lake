@@ -7,6 +7,11 @@ body {
   margin: 0;
 }
 
+@font-face {
+  font-family: sevenSegment;
+  src: url("Assets/Fonts/SevenSegment.ttf");
+}
+
 #stringCanvas {
   position: absolute;
   left: 29.7%;
@@ -19,12 +24,7 @@ body {
   bottom: 160px;
   width: 20%;
   height: auto;
-  border: 1px solid black;
-}
-
-@font-face {
-  font-family: sevenSegment;
-  src: url(Assets/Fonts/Seven_Segment.ttf);
+  /* border: 1px solid black; */
 }
 
 .bg {
@@ -54,8 +54,6 @@ body {
 .fishSkAITS {
   position: absolute;
   color: white;
-  left: 2.5%;
-  bottom: 15%;
   font-style: bold;
   font-size: 2em;
 }
@@ -71,7 +69,8 @@ body {
 .radio-box {
   position: relative;
   width: 10vw;
-  height: 10vw;
+  height: 10vw; /* or block */
+
   top: 75%;
   left: 20%;
 }
@@ -185,30 +184,24 @@ body {
   visibility: hidden;
 }
 
-.time {
-  position: relative;
-  font-family: sevenSegment;
-  width: 10%;
-  height: 25%;
-  left: 88%;
-  top: -20%;
-}
-
 .watch {
   position: absolute;
-  width: 100%;
+  top: 15px;
+  right: 10px;
+  width: 10%;
   height: auto;
-  pointer-events: none;
+  z-index: 10;
 }
+
 .date {
   position: absolute;
-  top: 28%;
-  right: 15%;
+  font-family: sevenSegment;
+  top: 20px;
+  right: 10px;
   text-align: center;
   color: black;
-  font-size: 1.5em;
-  font-weight: bold;
-  width: 70%;
+  font-size: 2em;
+  width: 220px;
 }
 
 .watermark {

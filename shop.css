@@ -1,6 +1,5 @@
 * {
   width: 100vw;
-  height: 100vh;
   margin: 0;
 }
 
@@ -9,24 +8,88 @@
   background-repeat: no-repeat;
   background-size: cover;
   width: 100vw;
-  height: auto;
+  height: 100vh;
   margin: 0;
 }
 
 .arrow {
   position: absolute;
-  width: 1%;
+  transform: rotate(180deg);
+  width: 10%;
   height: auto;
-  top: 50px;
-  left: 10px;
+  top: 10px;
+  left: 45px;
+}
+
+.testButton {
+  position: absolute;
+  text-align: center;
 }
 
 .watermark {
   position: absolute;
-  color: white;
+  color: black;
   font-style: italic;
   font-size: 20px;
   opacity: 50%;
   left: 2.5%;
-  bottom: 2.5%;
+  bottom: 17.5%;
+  width: 30%;
+}
+
+.grid-containter {
+  width: 100vw;
+  display: grid;
+  grid-template-columns: repeat(8, 0fr);
+
+  position: absolute;
+
+  bottom: 200px;
+  justify-content: center;
+}
+
+.grid-item {
+  position: relative;
+  width: 20px;
+  border: 1px solid black;
+  padding: 60px;
+  aspect-ratio: 1 / 1;
+
+  gap: 50px 50px;
+  background-color: #eae295;
+  text-align: left;
+  cursor: pointer;
+}
+
+.inv-img {
+  position: absolute;
+  z-index: 10;
+  width: 70%;
+  height: auto;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+}
+
+.grid-containter2 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+}
+
+.grid-item2 {
+  flex: 1;
+  position: relative;
+  width: 20%;
+  border: 1px solid black;
+  padding: 100px 160px;
+
+  gap: 50px 50px;
+  background-color: #eae295;
+  text-align: left;
+  cursor: pointer;
 }

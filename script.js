@@ -10,13 +10,6 @@ let fishCaught = false;
 let newThrow = true;
 let fishCount = 0;
 let currentHour = 0;
-const fishValues = {
-  lidaka: 4,
-  asaris: 2,
-  vimba: 1,
-  lasis: 3,
-  negis: 1,
-};
 
 const activeBonus = {
   hooks: false,
@@ -108,6 +101,7 @@ function rotate() {
 
   setTimeout(() => {
     r.style.transition = "all 0.2s ease";
+    throwSound.play();
     r.style.transform = "rotate(0deg)";
 
     setTimeout(() => {
@@ -115,6 +109,14 @@ function rotate() {
     }, 200);
   }, 2000);
 }
+
+let throwSound = new Howl({
+  src: ["Assets/Sounds/Lake/air_whoosh.mp3"],
+  html5: true,
+  format: ["mp3"],
+  volume: 0.3,
+  loop: false,
+});
 
 document.addEventListener("keydown", (event) => {
   if (newThrow) {
@@ -128,10 +130,6 @@ document.addEventListener("keydown", (event) => {
         document.getElementById("hooksChecked").style.visibility = "hidden";
         document.getElementById("graudnieksChecked").style.visibility =
           "hidden";
-
-        if (activeBonus.bread) {
-          data.bonus.bread -= 1;
-        }
 
         ctx.clearRect(0, 0, ct.width, ct.height);
 
@@ -163,6 +161,7 @@ function catchFish() {
 
   if (floaterY <= 202) {
     requestAnimationFrame(catchFish);
+    sinkSound.play();
   } else {
     slider();
     ctx2.fillStyle = "#7CFC00";
@@ -203,7 +202,7 @@ async function slider() {
     if (greenLength <= 0) {
       clearInterval(s);
       clearInterval(timer);
-      console.log("tu padirsi");
+
       stealFish();
     }
     console.log(greenLength);
@@ -211,7 +210,7 @@ async function slider() {
       if (greenLength <= 130) {
         clearInterval(s);
         clearInterval(timer);
-        console.log("tu padirsi");
+
         stealFish();
       }
     }
@@ -219,7 +218,6 @@ async function slider() {
 
   let timer = setInterval(() => {
     t++;
-    console.log(t);
   }, 1000);
 }
 
@@ -242,9 +240,9 @@ function determineFish() {
 }
 
 function congrats() {
-  activeBonus.bread = false;
+  console.log(activeBonus);
   let fish = determineFish();
-  let fishCount = 0;
+  console.log(fish);
   ctx.clearRect(0, 0, ct.width, ct.height);
   document.getElementById("congratsBG").style.visibility = "visible";
   document.getElementById(fish).style.visibility = "visible";
@@ -266,21 +264,25 @@ function congrats() {
   }
 
   if (activeBonus.worms) {
+    console.log("worms: ", activeBonus.worms);
     data.bonus.worms -= 1;
+  } else {
+    data.bonus.bread -= 1;
   }
 
   if (activeBonus.graudnieks) {
     data.bonus.graudnieks -= 1;
   }
-
+  activeBonus.bread = false;
   activeBonus.worms = false;
   activeBonus.graudnieks = false;
-  document.getElementById("fishAmount").innerHTML = fishCount + "/10";
+  document.getElementById("fishAmount").innerHTML = fishCount + 1 + "/10";
   document.getElementById("hookCount").innerHTML = data.bonus.hooks;
   document.getElementById("breadCount").innerHTML = data.bonus.bread;
   document.getElementById("wormsCount").innerHTML = data.bonus.worms;
   document.getElementById("degvinsCount").innerHTML = data.bonus.graudnieks;
   checkIfZero();
+  console.log(data);
   setCookie("myData", data, 365);
 }
 
@@ -290,6 +292,9 @@ function stealFish() {
   data.bonus.hooks -= 1;
   newThrow = true;
   fishCaught = false;
+  activeBonus.bread = false;
+  activeBonus.worms = false;
+  activeBonus.graudnieks = false;
 }
 
 let reel = new Howl({
@@ -334,27 +339,37 @@ function fishChances() {
 
     if (random >= interval) {
       catchFish();
-      sinkSound.play();
     } else {
       fishChances();
     }
   }, 10000);
 }
 
+let acceptSound = new Howl({
+  src: ["Assets/Sounds/Global/acceptSound.mp3"],
+  html5: true,
+  format: ["mp3"],
+  volume: 1,
+  loop: false,
+});
+
 function selectBonus(id) {
+  let element = document.getElementById(id);
+
   console.log(activeBonus[id] == false, data.bonus[id]);
   if (activeBonus[id] == false && data.bonus[id] > 0) {
     if (id == "worms") {
       if (activeBonus.bread == true) {
+        acceptSound.play();
         return;
       }
     }
     if (id == "bread") {
       if (activeBonus.worms == true) {
+        acceptSound.play();
         return;
       }
     }
-
     document.getElementById(id + "Checked").style.visibility = "visible";
     activeBonus[id] = true;
   } else if (activeBonus[id] == true) {
@@ -381,21 +396,24 @@ function setCookie(name, value, days) {
 }
 
 function irlTime() {
-  let extraHour = "00";
+  let extraHour;
+  let extraMinute;
   let hour = new Date();
   let min = new Date();
   currentHour = hour.getHours();
   currentMinute = min.getMinutes();
   if (currentMinute <= 9) {
-    currentMinute = "0" + currentMinute;
+    extraMinute = "0" + currentMinute;
+  } else {
+    extraMinute = currentMinute;
   }
   if (currentHour <= 9) {
     extraHour = "0" + currentHour;
     document.getElementById("timeOutput").innerHTML =
-      extraHour + " : " + currentMinute;
+      extraHour + " : " + extraMinute;
   } else {
     document.getElementById("timeOutput").innerHTML =
-      currentHour + " : " + currentMinute;
+      currentHour + " : " + extraMinute;
   }
 }
 setInterval(irlTime, 5000);
