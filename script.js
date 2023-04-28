@@ -43,7 +43,6 @@ let data = myCookie
         cits_krasts: false,
       },
     };
-
 document.getElementById("hookCount").innerHTML = data.bonus.hooks;
 document.getElementById("breadCount").innerHTML = data.bonus.bread;
 document.getElementById("wormsCount").innerHTML = data.bonus.worms;
@@ -122,6 +121,7 @@ document.addEventListener("keydown", (event) => {
   if (newThrow) {
     if (event.keyCode == 32 && activeBonus.hooks == true) {
       if (activeBonus.worms == true || activeBonus.bread == true) {
+        fishCount = 0;
         floaterX = 260;
         floaterY = 180;
 
@@ -161,13 +161,13 @@ function catchFish() {
 
   if (floaterY <= 202) {
     requestAnimationFrame(catchFish);
-    sinkSound.play();
   } else {
     slider();
     ctx2.fillStyle = "#7CFC00";
     ctx2.fillRect(0, 0, greenLength, ct2.height);
     greenLength = 100;
   }
+  sinkSound.play();
 }
 
 async function slider() {
@@ -239,6 +239,11 @@ function determineFish() {
   return fish;
 }
 
+for (let key in data.fishes) {
+  fishCount += data.fishes[key];
+  document.getElementById("fishAmount").innerHTML = fishCount + "/10";
+}
+
 function congrats() {
   console.log(activeBonus);
   let fish = determineFish();
@@ -276,11 +281,11 @@ function congrats() {
   activeBonus.bread = false;
   activeBonus.worms = false;
   activeBonus.graudnieks = false;
-  document.getElementById("fishAmount").innerHTML = fishCount + 1 + "/10";
   document.getElementById("hookCount").innerHTML = data.bonus.hooks;
   document.getElementById("breadCount").innerHTML = data.bonus.bread;
   document.getElementById("wormsCount").innerHTML = data.bonus.worms;
   document.getElementById("degvinsCount").innerHTML = data.bonus.graudnieks;
+  document.getElementById("fishAmount").innerHTML = fishCount + "/10";
   checkIfZero();
   console.log(data);
   setCookie("myData", data, 365);
@@ -394,7 +399,6 @@ function setCookie(name, value, days) {
     expires +
     "; path=/";
 }
-
 function irlTime() {
   let extraHour;
   let extraMinute;
@@ -409,14 +413,13 @@ function irlTime() {
   }
   if (currentHour <= 9) {
     extraHour = "0" + currentHour;
-    document.getElementById("timeOutput").innerHTML =
-      extraHour + " : " + extraMinute;
   } else {
-    document.getElementById("timeOutput").innerHTML =
-      currentHour + " : " + extraMinute;
+    extraHour = currentHour;
   }
+  document.getElementById("timeOutput").innerHTML =
+    extraHour + " : " + extraMinute;
 }
-setInterval(irlTime, 5000);
+setInterval(irlTime, 1000);
 // ---------------------------
 
 let sound = new Howl({

@@ -9,7 +9,7 @@ body {
 
 @font-face {
   font-family: sevenSegment;
-  src: url("Assets/Fonts/SevenSegment.ttf");
+  src: url("Assets/Fonts/Seven_Segment.ttf");
 }
 
 #stringCanvas {
@@ -52,6 +52,8 @@ body {
 }
 
 .fishSkAITS {
+  bottom: 20%;
+  left: 3.5%;
   position: absolute;
   color: white;
   font-style: bold;
@@ -196,12 +198,14 @@ body {
 .date {
   position: absolute;
   font-family: sevenSegment;
-  top: 20px;
-  right: 10px;
+  font-weight: bold;
+  top: 70px;
+  right: -20px;
   text-align: center;
   color: black;
-  font-size: 2em;
+  font-size: 1.5em;
   width: 220px;
+  z-index: 10;
 }
 
 .watermark {

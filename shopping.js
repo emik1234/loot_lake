@@ -21,12 +21,16 @@ const mapPrice = {
   cits_krasts: 4,
 };
 
-function allTest() {
-  money = 999;
-  console.log(money);
-}
+let purches_sell = new Howl({
+  src: ["Assets/Sounds/Shop/purches.mp3"],
+  html5: true,
+  format: ["mp3"],
+  volume: 1,
+  loop: false,
+});
 
 function sellFish(fish) {
+  purches_sell.play();
   let data1 = decodeURIComponent(document.cookie.split("=")[1]);
   console.log(data1);
   data = JSON.parse(data1);
@@ -39,6 +43,7 @@ function sellFish(fish) {
 }
 
 function buyBonus(bonus) {
+  purches_sell.play();
   let data1 = decodeURIComponent(document.cookie.split("=")[1]);
   console.log("bonusprice ", bonusPrice[bonus]);
   data = JSON.parse(data1);
@@ -53,7 +58,8 @@ function buyBonus(bonus) {
 }
 
 function buyMap(map) {
-  if (money <= mapPrice[map]) {
+  purches_sell.play();
+  if (money >= mapPrice[map]) {
     let data1 = decodeURIComponent(document.cookie.split("=")[1]);
     console.log(data1);
     data = JSON.parse(data1);
@@ -61,6 +67,21 @@ function buyMap(map) {
     data.backgrounds[map] = true;
     data.money -= mapPrice[map];
     setCookie("myData", data, 365);
+  }
+}
+
+function displayCount() {
+  let data1 = decodeURIComponent(document.cookie.split("=")[1]);
+  data = JSON.parse(data1);
+
+  let items = document.getElementsByClassName("item-count");
+
+  for (let i = 0; i < items.length; i++) {
+    let id = items[i].id;
+    console.log(id);
+    let asset = items[i].getAttribute("asset");
+
+    items[i].innerHTML = data[id][asset];
   }
 }
 
@@ -74,6 +95,14 @@ let music = new Howl({
   loop: true,
 });
 music.play();
+
+function displayMoney() {
+  let data1 = decodeURIComponent(document.cookie.split("=")[1]);
+  data = JSON.parse(data1);
+  console.log(data.money);
+
+  document.getElementById("moneyCount").innerHTML = `Money: ${data.money}`;
+}
 
 function setCookie(name, value, days) {
   var expires = "";
@@ -90,4 +119,9 @@ function setCookie(name, value, days) {
     encodeURIComponent(JSON.stringify(value)) +
     expires +
     "; path=/";
+
+  displayMoney();
+  displayCount();
 }
+displayCount();
+displayMoney();

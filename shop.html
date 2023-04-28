@@ -11,9 +11,7 @@
   </head>
   <body>
     <div class="bg">
-      <button type="button" class="testButton" onclick="allTest()">
-        SELL! SELL! SELL!
-      </button>
+      <h5 class="display-money" id="moneyCount"></h5>
       <a href="index.html">
         <img src="Assets/Images/Global/Arrow.jpg" alt="Return" class="arrow"
       /></a>
@@ -21,71 +19,148 @@
       <div class="grid-containter">
         <div id="bread" onclick="buyBonus(this.id)" class="grid-item">
           <a class="inv-item"
-            ><img class="inv-img" src="Assets/Images/Global/bread.jpg" alt=""
-          /></a>
+            ><img class="inv-img" src="Assets/Images/Global/bread.jpg" alt="" />
+            <h5 class="item-count" asset="bread" id="bonus">0</h5>
+            <img
+              class="inv-price"
+              src="Assets/Images/Global/3_EUR_obverse.jpg"
+              alt=""
+            />
+            <h4 id="price">1</h4></a
+          >
         </div>
         <div id="worms" onclick="buyBonus(this.id)" class="grid-item">
           <a class="inv-item"
-            ><img class="inv-img" src="Assets/Images/Global/worms.jpg" alt=""
-          /></a>
+            ><img class="inv-img" src="Assets/Images/Global/worms.jpg" alt="" />
+            <h5 class="item-count" asset="worms" id="bonus">0</h5>
+            <img
+              class="inv-price"
+              src="Assets/Images/Global/3_EUR_obverse.jpg"
+              alt=""
+            />
+            <h4 id="price">2</h4></a
+          >
         </div>
         <div id="hooks" onclick="buyBonus(this.id)" class="grid-item">
           <a class="inv-item"
-            ><img class="inv-img" src="Assets/Images/Global/hook.jpg" alt=""
-          /></a>
+            ><img class="inv-img" src="Assets/Images/Global/hook.jpg" alt="" />
+            <h5 class="item-count" asset="hooks" id="bonus">0</h5></a
+          >
+          <img
+            class="inv-price"
+            src="Assets/Images/Global/3_EUR_obverse.jpg"
+            alt=""
+          />
+          <h4 id="price">1</h4>
         </div>
 
         <div id="graudnieks" onclick="buyBonus(this.id)" class="grid-item">
           <a class="inv-item"
-            ><img class="inv-img" src="Assets/Images/Global/degvins.png" alt=""
-          /></a>
+            ><img
+              class="inv-img"
+              src="Assets/Images/Global/degvins.png"
+              alt=""
+            />
+            <img
+              class="inv-price"
+              src="Assets/Images/Global/3_EUR_obverse.jpg"
+              alt=""
+            />
+            <h4 id="price">3</h4>
+            <h5 class="item-count" asset="graudnieks" id="bonus">0</h5></a
+          >
         </div>
         <div class="grid-item"></div>
         <div id="saulriets" onclick="buyMap(this.id)" class="grid-item">
           <a class="inv-item"
-            ><img class="inv-img" src="Assets/Images/Lake/2.jpg" alt=""
-          /></a>
+            ><img class="inv-img" src="Assets/Images/Lake/2.jpg" alt="" />
+            <img
+              class="inv-price"
+              src="Assets/Images/Global/3_EUR_obverse.jpg"
+              alt=""
+            />
+            <h4 id="price">7</h4>
+          </a>
         </div>
         <div id="cits_krasts" onclick="buyMap(this.id)" class="grid-item">
           <a class="inv-item"
-            ><img class="inv-img" src="Assets/Images/Lake/3.jpg" alt=""
-          /></a>
+            ><img class="inv-img" src="Assets/Images/Lake/3.jpg" alt="" />
+            <img
+              class="inv-price"
+              src="Assets/Images/Global/3_EUR_obverse.jpg"
+              alt="Moneys"
+            />
+            <h4 id="price">4</h4>
+          </a>
         </div>
         <div id="pils" onclick="buyMap(this.id)" class="grid-item">
           <a class="inv-item"
             ><img
-              class="inv-img degvins"
+              class="inv-img"
               src="Assets/Images/Lake/Pile.jpg"
-              alt=""
-          /></a>
+              alt="Moneys"
+            />
+            <img
+              class="inv-price"
+              src="Assets/Images/Global/3_EUR_obverse.jpg"
+              alt="Moneys"
+            />
+            <h4 class="pilsPrice">10</h4>
+          </a>
         </div>
       </div>
 
       <div class="grid-containter2">
         <div onclick="sellFish(this.id)" id="lidaka" class="grid-item2">
           <a class="inv-item"
-            ><img class="inv-img" src="Assets/Images/Global/li.png" alt=""
-          /></a>
+            ><img class="inv-img" src="Assets/Images/Global/li.png" alt="" />
+            <h5 class="item-count" asset="lidaka" id="fishes">0</h5>
+            <img
+              class="fish-price"
+              src="Assets/Images/Global/3_EUR_obverse.jpg"
+              alt="Moneys"
+            />
+          </a>
         </div>
         <div onclick="sellFish(this.id)" id="asaris" class="grid-item2">
           <a class="inv-item"
-            ><img class="inv-img" src="Assets/Images/Global/ahven.png" alt=""
+            ><img class="inv-img" src="Assets/Images/Global/ahven.png" alt="" />
+            <h5 class="item-count" asset="asaris" id="fishes">0</h5>
+            <img
+              class="fish-price"
+              src="Assets/Images/Global/3_EUR_obverse.jpg"
+              alt="Moneys"
           /></a>
         </div>
         <div onclick="sellFish(this.id)" id="lasis" class="grid-item2">
           <a class="inv-item"
-            ><img class="inv-img" src="Assets/Images/Global/lasis.jpg" alt=""
+            ><img class="inv-img" src="Assets/Images/Global/lasis.jpg" alt="" />
+            <h5 class="item-count" asset="lasis" id="fishes">0</h5>
+            <img
+              class="fish-price"
+              src="Assets/Images/Global/3_EUR_obverse.jpg"
+              alt="Moneys"
           /></a>
         </div>
 
         <div onclick="sellFish(this.id)" id="negis" class="grid-item2">
           <a class="inv-item"
-            ><img class="inv-img" src="Assets/Images/Global/negis.png" alt=""
+            ><img class="inv-img" src="Assets/Images/Global/negis.png" alt="" />
+            <h5 class="item-count" asset="negis" id="fishes">0</h5>
+            <img
+              class="fish-price"
+              src="Assets/Images/Global/3_EUR_obverse.jpg"
+              alt="Moneys"
           /></a>
         </div>
         <div onclick="sellFish(this.id)" id="vimba" class="grid-item2">
           <a class="inv-item"
-            ><img class="inv-img" src="Assets/Images/Global/vimba.png" alt=""
+            ><img class="inv-img" src="Assets/Images/Global/vimba.png" alt="" />
+            <h5 class="item-count" asset="vimba" id="fishes">0</h5>
+            <img
+              class="fish-price"
+              src="Assets/Images/Global/3_EUR_obverse.jpg"
+              alt="Moneys"
           /></a>
         </div>
       </div>

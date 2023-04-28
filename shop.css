@@ -93,3 +93,66 @@
   text-align: left;
   cursor: pointer;
 }
+
+.display-money {
+  position: absolute;
+  width: 10%;
+  left: 4%;
+  top: 17%;
+  font-size: 2em;
+  color: white;
+}
+
+.item-count {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 5%;
+  z-index: 10;
+}
+
+.inv-price {
+  position: absolute;
+  z-index: 10;
+  width: 60%;
+  height: auto;
+  top: -31%;
+  left: 50%;
+  transform: translate(-70%, 0);
+}
+
+#price {
+  width: 10%;
+  position: absolute;
+  z-index: 11;
+  top: -30%;
+  right: 5%;
+  color: purple;
+  background-color: white;
+  text-align: center;
+  font-size: 2em;
+  padding: 0 7px;
+}
+
+.pilsPrice {
+  width: 10%;
+  position: absolute;
+  z-index: 11;
+  top: -30%;
+  right: -2%;
+  color: purple;
+  background-color: white;
+  text-align: center;
+  font-size: 2em;
+  padding-left: 7px;
+  padding-right: 22px;
+}
+
+.fish-price {
+  position: absolute;
+  z-index: 10;
+  width: 30%;
+  height: auto;
+  bottom: 3%;
+  left: 20%;
+}
