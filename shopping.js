@@ -21,6 +21,11 @@ const mapPrice = {
   cits_krasts: 4,
 };
 
+let data1 = decodeURIComponent(document.cookie.split("=")[1]);
+data = JSON.parse(data1);
+
+checkMaps();
+
 let purches_sell = new Howl({
   src: ["Assets/Sounds/Shop/purches.mp3"],
   html5: true,
@@ -30,12 +35,12 @@ let purches_sell = new Howl({
 });
 
 function sellFish(fish) {
-  purches_sell.play();
   let data1 = decodeURIComponent(document.cookie.split("=")[1]);
-  console.log(data1);
+
   data = JSON.parse(data1);
 
   if (data.fishes[fish] > 0) {
+    if (data.sound) purches_sell.play();
     data.fishes[fish] -= 1;
     data.money += price[fish];
     setCookie("myData", data, 365);
@@ -43,14 +48,12 @@ function sellFish(fish) {
 }
 
 function buyBonus(bonus) {
-  purches_sell.play();
   let data1 = decodeURIComponent(document.cookie.split("=")[1]);
-  console.log("bonusprice ", bonusPrice[bonus]);
+
   data = JSON.parse(data1);
-  console.log(bonusPrice[bonus]);
   if (data.money >= bonusPrice[bonus]) {
-    console.log("BUYING");
-    console.log(data.bonus[bonus]);
+    if (data.sound) purches_sell.play();
+
     data.bonus[bonus] += 1;
     data.money -= bonusPrice[bonus];
     setCookie("myData", data, 365);
@@ -58,15 +61,17 @@ function buyBonus(bonus) {
 }
 
 function buyMap(map) {
-  purches_sell.play();
-  if (money >= mapPrice[map]) {
-    let data1 = decodeURIComponent(document.cookie.split("=")[1]);
-    console.log(data1);
-    data = JSON.parse(data1);
+  if (data.money >= mapPrice[map]) {
+    if (data.backgrounds[map] == false) {
+      if (data.sound) purches_sell.play();
+      let data1 = decodeURIComponent(document.cookie.split("=")[1]);
 
-    data.backgrounds[map] = true;
-    data.money -= mapPrice[map];
-    setCookie("myData", data, 365);
+      data = JSON.parse(data1);
+
+      data.backgrounds[map] = true;
+      data.money -= mapPrice[map];
+      setCookie("myData", data, 365);
+    }
   }
 }
 
@@ -78,7 +83,7 @@ function displayCount() {
 
   for (let i = 0; i < items.length; i++) {
     let id = items[i].id;
-    console.log(id);
+
     let asset = items[i].getAttribute("asset");
 
     items[i].innerHTML = data[id][asset];
@@ -88,27 +93,39 @@ function displayCount() {
 let music = new Howl({
   src: ["Assets/Sounds/Shop/Bacground.mp3"],
   html5: true,
-  autoplay: true,
+  autoplay: false,
   format: ["mp3"],
   volume: 0.04,
   echo: 0.7,
   loop: true,
 });
-music.play();
+if (data.sound) {
+  music.play();
+}
 
 function displayMoney() {
   let data1 = decodeURIComponent(document.cookie.split("=")[1]);
   data = JSON.parse(data1);
-  console.log(data.money);
 
   document.getElementById("moneyCount").innerHTML = `Money: ${data.money}`;
 }
 
+function checkMaps() {
+  for (let i in mapPrice) {
+    if (data.backgrounds[i] == true) {
+      document.getElementById(`${i}1`).style.opacity = 1;
+    } else {
+      document.getElementById(`${i}1`).style.opacity = 0.5;
+    }
+  }
+}
+
 function setCookie(name, value, days) {
-  var expires = "";
+  checkMaps();
+  let expires = "";
 
   if (days) {
-    var date = new Date();
+    let date = new Date();
     date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
     expires = "; expires=" + date.toUTCString();
   }

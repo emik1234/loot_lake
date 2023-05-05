@@ -10,7 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.js"></script>
   </head>
   <body>
-    <div class="bg">
+    <div id="bg" class="bg">
       <iframe
         src="https://www.youtube.com/embed/IpuNd8ezovo?autoplay=1&enablejsapi=1&controls=0&showinfo=0&rel=0&loop=1&playlist=IpuNd8ezovo"
         width="0"
@@ -38,7 +38,9 @@
         </a>
         <div id="radioLed"></div>
       </div>
-
+      <h1 id="mustChoose">
+        You must have a hook and some bait (bread or worms) equipped!
+      </h1>
       <div class="grid-containter">
         <div class="grid-item">
           <h5 id="hookCount" class="inv-count">0</h5>
@@ -108,7 +110,7 @@
           alt="Shop"
           class="img-shop"
       /></a>
-      <a href="#">
+      <a href="settings.html">
         <img
           src="Assets/Images/Global/BUCKET.png"
           alt="Inventory"
@@ -164,10 +166,16 @@
         Manager: Matīss Toms Ķiploks<br />
         Copyright - 1989
       </p>
+
+      <div id="nameInput" class="name-input">
+        <h2 class="name-title">Enter Your Name</h2>
+        <input type="text" id="yourName" />
+        <button class="name-btn" onclick="showName()">Enter</button>
+      </div>
+
+      <h3 id="namePosition" class="current-name"></h3>
     </div>
 
     <script src="script.js"></script>
   </body>
 </html>
-
-<!--iemesānas sakņ, shop, laiks, maksim;alais zivis  -->

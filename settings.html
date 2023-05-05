@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="settings.css" />
+    <title>Settings</title>
+  </head>
+  <body>
+    <div class="main">
+      <iframe
+        src="https://www.youtube.com/embed/MtRuKrsdXe0"
+        width="0"
+        height="0"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        allowfullscreen
+        onload="onIframeLoad(this)"
+      ></iframe>
+
+      <h1>Settings</h1>
+      <a href="index.html">
+        <img src="Assets/Images/Global/Arrow.jpg" alt="Return" class="arrow"
+      /></a>
+      <div class="maps">
+        <h2>Map</h2>
+
+        <div class="check">
+          <img
+            onclick="selectMap(this.id)"
+            class="map"
+            id="main"
+            src="Assets/Images/Lake/main.jpg"
+            alt="Main Map"
+          />
+          <img
+            id="mainSelected"
+            class="selector"
+            src="Assets/Images/Global/chech.png"
+            alt=""
+          />
+        </div>
+        <div class="check">
+          <img
+            onclick="selectMap(this.id)"
+            class="map"
+            id="saulriets"
+            src="Assets/Images/Lake/saulriets.jpg"
+            alt="saulriets"
+          />
+          <img
+            id="saulrietsSelected"
+            class="selector"
+            src="Assets/Images/Global/chech.png"
+            alt=""
+          />
+        </div>
+        <div class="check">
+          <img
+            onclick="selectMap(this.id)"
+            class="map"
+            id="cits_krasts"
+            src="Assets/Images/Lake/cits_krasts.jpg"
+            alt="Cits Krasts"
+          />
+          <img
+            id="cits_krastsSelected"
+            class="selector"
+            src="Assets/Images/Global/chech.png"
+            alt=""
+          />
+        </div>
+        <div class="check">
+          <img
+            onclick="selectMap(this.id)"
+            class="map"
+            id="pils"
+            src="Assets/Images/Lake/pils.jpg"
+            alt="Pils"
+          />
+          <img
+            id="pilsSelected"
+            class="selector"
+            src="Assets/Images/Global/chech.png"
+            alt=""
+          />
+        </div>
+      </div>
+
+      <h2>Sound</h2>
+      <div class="checkbox-wrapper-22">
+        <label class="switch" for="checkbox">
+          <input
+            onclick="sound()"
+            type="checkbox"
+            id="checkbox"
+            checked="true"
+          />
+          <div class="slider round"></div>
+        </label>
+      </div>
+      <form action="">
+        <div class="feed">
+          <h2>Feedback</h2>
+          <textarea
+            name="Feedback"
+            id="feedback"
+            cols="30"
+            rows="10"
+          ></textarea>
+        </div>
+        <button type="submit" class="send-feedback">Send</button>
+      </form>
+    </div>
+
+    <script src="settings.js"></script>
+  </body>
+</html>

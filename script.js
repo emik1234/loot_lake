@@ -5,11 +5,17 @@ let floaterY = 180;
 let greenLength = 100;
 let lineWidth = 0;
 let maxLength = 100;
+
+let fishCount = 0;
+let currentHour = 0;
+
+let keyup = true;
 let radio = false;
 let fishCaught = false;
 let newThrow = true;
-let fishCount = 0;
-let currentHour = 0;
+let caughtPlayed = false;
+
+let nameEntered = false;
 
 const activeBonus = {
   hooks: false,
@@ -23,12 +29,15 @@ let myCookie = cookies.find((cookie) => cookie.includes("myData="));
 let data = myCookie
   ? JSON.parse(decodeURIComponent(myCookie.split("=")[1]))
   : {
+      name: "",
+      sound: true,
+      currentMap: "main",
       money: 0,
       bonus: {
         hooks: 3,
-        bread: 3,
-        worms: 3,
-        graudnieks: 3,
+        bread: 2,
+        worms: 2,
+        graudnieks: 0,
       },
       fishes: {
         asaris: 0,
@@ -38,17 +47,40 @@ let data = myCookie
         lasis: 0,
       },
       backgrounds: {
+        main: true,
         pils: false,
         saulriets: false,
         cits_krasts: false,
       },
     };
+
+if (data.name == "") {
+  document.getElementById("nameInput").style.opacity = 1;
+} else {
+  namePosition.innerHTML = `Hello, ${data.name}`;
+}
+
+function showName() {
+  let name = document.getElementById("yourName").value;
+  document.getElementById("nameInput").style.opacity = 0;
+  data.name = name;
+  namePosition.innerHTML = `Hello, ${name}`;
+  setCookie("myData", data, 365);
+}
+
 document.getElementById("hookCount").innerHTML = data.bonus.hooks;
 document.getElementById("breadCount").innerHTML = data.bonus.bread;
 document.getElementById("wormsCount").innerHTML = data.bonus.worms;
 document.getElementById("degvinsCount").innerHTML = data.bonus.graudnieks;
 
+document.getElementById(
+  "bg"
+).style.backgroundImage = `url(Assets/Images/Lake/${data.currentMap}.jpg)`;
+
 checkIfZero();
+
+if (data.name == "") {
+}
 
 function checkIfZero() {
   let items = document.querySelectorAll(".inv-item");
@@ -63,10 +95,17 @@ function checkIfZero() {
 }
 
 function onIframeLoad(iframe) {
-  iframe.contentWindow.postMessage(
-    '{"event":"command","func":"setVolume","args":[25]}',
-    "*"
-  );
+  if (data.sound) {
+    iframe.contentWindow.postMessage(
+      '{"event":"command","func":"setVolume","args":[25]}',
+      "*"
+    );
+  } else {
+    iframe.contentWindow.postMessage(
+      '{"event":"command","func":"setVolume","args":[0]}',
+      "*"
+    );
+  }
 }
 
 const ct = document.getElementById("stringCanvas");
@@ -100,7 +139,10 @@ function rotate() {
 
   setTimeout(() => {
     r.style.transition = "all 0.2s ease";
-    throwSound.play();
+    if (data.sound) {
+      throwSound.play();
+    }
+
     r.style.transform = "rotate(0deg)";
 
     setTimeout(() => {
@@ -118,12 +160,14 @@ let throwSound = new Howl({
 });
 
 document.addEventListener("keydown", (event) => {
-  if (newThrow) {
+  if (newThrow && data.name != "") {
     if (event.keyCode == 32 && activeBonus.hooks == true) {
       if (activeBonus.worms == true || activeBonus.bread == true) {
         fishCount = 0;
         floaterX = 260;
         floaterY = 180;
+
+        caughtPlayed = false;
 
         document.getElementById("wormsChecked").style.visibility = "hidden";
         document.getElementById("breadChecked").style.visibility = "hidden";
@@ -134,10 +178,26 @@ document.addEventListener("keydown", (event) => {
         ctx.clearRect(0, 0, ct.width, ct.height);
 
         rotate();
+      } else {
+        showError(
+          "You must have a hook and some bait (bread or worms) equipped!"
+        );
       }
+    } else {
+      showError(
+        "You must have a hook and some bait (bread or worms) equipped!"
+      );
     }
   }
 });
+
+function showError(text) {
+  document.getElementById("mustChoose").textContent = text;
+  document.getElementById("mustChoose").style.opacity = 1;
+  setTimeout(() => {
+    document.getElementById("mustChoose").style.opacity = 0;
+  }, 3000);
+}
 
 let sinkSound = new Howl({
   src: ["Assets/Sounds/Lake/Splash.mp3"],
@@ -167,7 +227,10 @@ function catchFish() {
     ctx2.fillRect(0, 0, greenLength, ct2.height);
     greenLength = 100;
   }
-  sinkSound.play();
+  if (data.sound && !caughtPlayed) {
+    sinkSound.play();
+    caughtPlayed = true;
+  }
 }
 
 async function slider() {
@@ -191,9 +254,13 @@ async function slider() {
     ctx2.fillRect(0, 0, greenLength, ct2.height);
 
     if (greenLength >= 300) {
-      finshReel.play();
+      if (data.sound) {
+        finshReel.play();
+        rizz.play();
+      }
+
       fishCaught = false;
-      rizz.play();
+
       clearInterval(timer);
       clearInterval(s);
       congrats();
@@ -205,7 +272,7 @@ async function slider() {
 
       stealFish();
     }
-    console.log(greenLength);
+
     if (t >= 2) {
       if (greenLength <= 130) {
         clearInterval(s);
@@ -245,9 +312,8 @@ for (let key in data.fishes) {
 }
 
 function congrats() {
-  console.log(activeBonus);
   let fish = determineFish();
-  console.log(fish);
+
   ctx.clearRect(0, 0, ct.width, ct.height);
   document.getElementById("congratsBG").style.visibility = "visible";
   document.getElementById(fish).style.visibility = "visible";
@@ -263,13 +329,15 @@ function congrats() {
     fishCount += data.fishes[key];
   }
 
-  console.log(data);
   if (fishCount < 10) {
     data.fishes[fish]++;
   }
 
+  subtract();
+}
+
+function subtract() {
   if (activeBonus.worms) {
-    console.log("worms: ", activeBonus.worms);
     data.bonus.worms -= 1;
   } else {
     data.bonus.bread -= 1;
@@ -278,28 +346,31 @@ function congrats() {
   if (activeBonus.graudnieks) {
     data.bonus.graudnieks -= 1;
   }
-  activeBonus.bread = false;
-  activeBonus.worms = false;
-  activeBonus.graudnieks = false;
+  checkIfZero();
+  setCookie("myData", data, 365);
+
   document.getElementById("hookCount").innerHTML = data.bonus.hooks;
   document.getElementById("breadCount").innerHTML = data.bonus.bread;
   document.getElementById("wormsCount").innerHTML = data.bonus.worms;
   document.getElementById("degvinsCount").innerHTML = data.bonus.graudnieks;
   document.getElementById("fishAmount").innerHTML = fishCount + "/10";
-  checkIfZero();
-  console.log(data);
-  setCookie("myData", data, 365);
-}
 
-function stealFish() {
-  ctx.clearRect(0, 0, ct.width, ct.height);
-  ctx2.clearRect(0, 0, ct2.width, ct2.height);
-  data.bonus.hooks -= 1;
-  newThrow = true;
-  fishCaught = false;
   activeBonus.bread = false;
   activeBonus.worms = false;
   activeBonus.graudnieks = false;
+}
+
+function stealFish() {
+  showError("The fishe escape with da hooke");
+  subtract();
+  ctx.clearRect(0, 0, ct.width, ct.height);
+  ctx2.clearRect(0, 0, ct2.width, ct2.height);
+  data.bonus.hooks -= 1;
+  setTimeout(() => {
+    newThrow = true;
+  }, 1000);
+
+  fishCaught = false;
 }
 
 let reel = new Howl({
@@ -309,11 +380,20 @@ let reel = new Howl({
   format: ["mp3"],
 });
 document.addEventListener("keydown", (event) => {
-  if (fishCaught) {
+  if (fishCaught && keyup) {
     if (event.keyCode == 32) {
-      reel.play();
+      keyup = false;
+      if (data.sound) reel.play();
       greenLength += 20;
       drawRect();
+    }
+  }
+});
+
+document.addEventListener("keyup", (event) => {
+  if (fishCaught) {
+    if (event.keyCode == 32) {
+      keyup = true;
     }
   }
 });
@@ -359,19 +439,16 @@ let acceptSound = new Howl({
 });
 
 function selectBonus(id) {
-  let element = document.getElementById(id);
-
-  console.log(activeBonus[id] == false, data.bonus[id]);
   if (activeBonus[id] == false && data.bonus[id] > 0) {
     if (id == "worms") {
       if (activeBonus.bread == true) {
-        acceptSound.play();
+        if (data.sound) acceptSound.play();
         return;
       }
     }
     if (id == "bread") {
       if (activeBonus.worms == true) {
-        acceptSound.play();
+        if (data.sound) acceptSound.play();
         return;
       }
     }
@@ -387,7 +464,7 @@ function setCookie(name, value, days) {
   var expires = "";
 
   if (days) {
-    var date = new Date();
+    let date = new Date();
     date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
     expires = "; expires=" + date.toUTCString();
   }
@@ -399,6 +476,7 @@ function setCookie(name, value, days) {
     expires +
     "; path=/";
 }
+
 function irlTime() {
   let extraHour;
   let extraMinute;
@@ -420,13 +498,21 @@ function irlTime() {
     extraHour + " : " + extraMinute;
 }
 setInterval(irlTime, 1000);
+
 // ---------------------------
+
+let loaded = false;
 
 let sound = new Howl({
   src: ["http://195.13.253.51:8000/128_mp3"],
   html5: true,
   format: ["mp3"],
   volume: 0.3,
+
+  onload: function () {
+    loaded = true;
+  },
+
   onplay: function () {
     stopStatic();
   },
@@ -443,15 +529,17 @@ function playRadio() {
   if (radio) {
     sound.pause();
     radio = false;
-    static.play();
+
     document.getElementById("radioLed").style.visibility = "hidden";
+    static.play();
     setTimeout(function () {
       static.stop();
     }, 1000);
   } else {
     sound.play();
     radio = true;
-    static.play();
+
+    if (loaded == false) static.play();
     document.getElementById("radioLed").style.visibility = "visible";
   }
 }

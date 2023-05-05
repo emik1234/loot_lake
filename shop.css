@@ -156,3 +156,14 @@
   bottom: 3%;
   left: 20%;
 }
+
+.fishPrice {
+  width: 10%;
+  position: absolute;
+  bottom: 8%;
+  left: 55%;
+  text-align: center;
+  color: purple;
+  background-color: white;
+  font-size: 2em;
+}

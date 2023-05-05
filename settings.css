@@ -1,0 +1,118 @@
+body,
+html {
+  height: 100vh;
+
+  padding: 0;
+  background-image: url("Assets/Images/Global/settings.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  overflow: hidden;
+
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+  text-align: center;
+}
+
+.main {
+  margin-left: 4%;
+}
+
+.maps {
+  margin-top: 10vh;
+}
+
+.check {
+  display: inline-block;
+  height: fit-content;
+  position: relative;
+}
+
+.map {
+  cursor: pointer;
+  height: 12vh;
+  width: auto;
+}
+
+.arrow {
+  position: absolute;
+  transform: rotate(180deg);
+  width: 10%;
+  height: auto;
+  top: 25px;
+  left: 45px;
+}
+
+.selector {
+  position: absolute;
+  width: 30%;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+}
+
+.checkbox-wrapper-22 .switch {
+  display: inline-block;
+  height: 34px;
+  position: relative;
+  width: 60px;
+}
+
+.checkbox-wrapper-22 .switch input {
+  display: none;
+}
+
+.checkbox-wrapper-22 .slider {
+  background-color: #ccc;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: 0.4s;
+}
+
+.checkbox-wrapper-22 .slider:before {
+  background-color: #fff;
+  bottom: 4px;
+  content: "";
+  height: 26px;
+  left: 4px;
+  position: absolute;
+  transition: 0.4s;
+  width: 26px;
+}
+
+.checkbox-wrapper-22 input:checked + .slider {
+  background-color: #66bb6a;
+}
+
+.checkbox-wrapper-22 input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.checkbox-wrapper-22 .slider.round {
+  border-radius: 34px;
+}
+
+.checkbox-wrapper-22 .slider.round:before {
+  border-radius: 50%;
+}
+
+.feed {
+  margin-top: 10vh;
+}
+
+.send-feedback {
+  border: 1px solid black;
+  padding: 3px 10px;
+  background-color: transparent;
+  transition: 0.2s;
+}
+
+.send-feedback:hover {
+  background-color: rgba(255, 255, 255, 0.247);
+}
