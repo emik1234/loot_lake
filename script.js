@@ -208,6 +208,7 @@ let sinkSound = new Howl({
 });
 
 function catchFish() {
+  console.log(document.cookie);
   fishCaught = true;
   ctx.clearRect(0, 0, ct.width, ct.height);
   ctx.beginPath();
@@ -333,6 +334,7 @@ function congrats() {
     data.fishes[fish]++;
   }
 
+  console.log(document.cookie);
   subtract();
 }
 
@@ -362,10 +364,11 @@ function subtract() {
 
 function stealFish() {
   showError("The fishe escape with da hooke");
+  data.bonus.hooks -= 1;
   subtract();
   ctx.clearRect(0, 0, ct.width, ct.height);
   ctx2.clearRect(0, 0, ct2.width, ct2.height);
-  data.bonus.hooks -= 1;
+
   setTimeout(() => {
     newThrow = true;
   }, 1000);
